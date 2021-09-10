@@ -1,3 +1,3 @@
 # Leetcode
 
-Progress: 42 / 1994
+Progress: 44 / 1994

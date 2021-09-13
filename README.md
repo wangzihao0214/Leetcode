@@ -1,3 +1,3 @@
 # Leetcode
 
-Progress: 52 / 1999
+Progress: 56 / 1999

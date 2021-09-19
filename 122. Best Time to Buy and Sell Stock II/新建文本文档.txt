@@ -1,0 +1,44 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        """动态规划算法，i表示天，0表示手里没股票持有收益，1表示有股票，当天卖出的话得到截至当天的总收益"""
+        n = len(prices)
+        dp = [[0 for _ in range(2)] for _ in range(n)]
+        """
+        第0天之前收益肯定是0，所以第0天：
+        如果手里面没有股票，那么收益为0；
+        如果有股票，说明是当天买的，当天卖出的话获得截至当天的总收益-prices[0]
+        """
+        dp[0][0] = 0
+        dp[0][1] = -prices[0]
+        for i in range(1,n):
+            """
+            今天手中没有股票：
+            1、前一天手中也没有股票；
+            2、前一天手中有股票，今天卖掉了,所以利润加上销售所得prices[i]
+            """
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])
+            """
+            今天手中有股票：
+            1、前一天手中也股票；
+            2、前一天手中没有股票，今天买了，所以利润减去开销prices[i]
+            """
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i])
+        """返回最后一天手里没有股票的最大收益。截至前一天的利润一定是最大化的，如果考虑今天手中股票说明今天买的，还要减去卖股的钱，利润就会变少"""
+        return dp[n - 1][0]
+
+#         n = len(prices)
+#         dp = [[0] * n for _ in range(n)]
+        
+#         for i in range(n - 1):
+#             dp[i][i + 1] = max(0, prices[i + 1] - prices[i])
+        
+#         for length in range(2, n):
+#             for i in range(n - length):
+#                 j = i + length
+#                 for k in range(i + 1, j):
+#                     if dp[i][k] + dp[k][j] > dp[i][j]:
+#                         dp[i][j] = dp[i][k] + dp[k][j]
+#                     dp[i][j] = max(dp[i][j], prices[j] - prices[i])
+        
+#         return dp[0][n - 1]
+                    

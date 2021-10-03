@@ -1,3 +1,3 @@
 # Leetcode
 
-Progress: 103 / 2021
+Progress: 106 / 2021
